@@ -14,6 +14,12 @@ public interface HistoryDao {
     public void  add(History history);
 
     /**
+     * Add history list
+     * @param history
+     */
+    public void  addList(List<History> history);
+
+    /**
      * get last ten movies watched by given user
      * @param user
      */

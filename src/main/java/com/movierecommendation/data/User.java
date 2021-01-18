@@ -1,6 +1,7 @@
 package com.movierecommendation.data;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
@@ -17,6 +18,16 @@ public class User {
     private String email;
 
     private String password;
+
+    private List<History> watchList;
+
+    public List<History> getWatchList() {
+        return watchList;
+    }
+
+    public void setWatchList(List<History> watchList) {
+        this.watchList = watchList;
+    }
 
     @DBRef
     private Set<Role> roles = new HashSet<>();

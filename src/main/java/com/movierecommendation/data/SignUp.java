@@ -2,6 +2,7 @@ package com.movierecommendation.data;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -17,6 +18,8 @@ public class SignUp {
     private Set<String> role;
 
     private String password;
+
+    private List<History> watchList;
 
     public String getUsername() {
         return username;
@@ -56,5 +59,13 @@ public class SignUp {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<History> getWatchList() {
+        return watchList;
+    }
+
+    public void setWatchList(List<History> watchList) {
+        this.watchList = watchList;
     }
 }

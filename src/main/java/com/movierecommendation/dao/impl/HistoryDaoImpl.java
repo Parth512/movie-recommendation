@@ -26,6 +26,11 @@ public class HistoryDaoImpl implements HistoryDao {
     }
 
     @Override
+    public void addList(List<History> history) {
+        mongoTemplate.insertAll(history);
+    }
+
+    @Override
     public List<History> getLast10ByUser(String user) {
         Query query = new Query(Criteria.where("username").is(user));
         Sort sort = Sort.by(Sort.Direction.DESC, "timestamp");

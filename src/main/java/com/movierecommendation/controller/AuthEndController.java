@@ -1,5 +1,6 @@
 package com.movierecommendation.controller;
 
+import com.movierecommendation.dao.HistoryDao;
 import com.movierecommendation.dao.RoleDao;
 import com.movierecommendation.dao.UserDao;
 import com.movierecommendation.data.*;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,6 +37,11 @@ public class AuthEndController {
 
     @Autowired
     RoleDao roleRepository;
+
+
+    @Autowired
+    HistoryDao historyDao;
+
 
     @Autowired
     PasswordEncoder encoder;
@@ -81,7 +88,6 @@ public class AuthEndController {
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
-
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
@@ -123,9 +129,13 @@ public class AuthEndController {
                 }
             });
         }
-        user.setId(new Long(signUpRequest.getId()));
+        Random rand = new Random();
+
+        user.setId(new Long(rand.nextInt(1000)));
         user.setRoles(roles);
         userRepository.save(user);
+
+        historyDao.addList(signUpRequest.getWatchList());
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
